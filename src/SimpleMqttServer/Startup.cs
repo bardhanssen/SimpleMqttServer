@@ -50,7 +50,10 @@ public class Startup
             .AddDataAnnotationsLocalization();
 
         var mqttServerOptions = new MqttServerOptionsBuilder().WithDefaultEndpointPort(1883).Build();
-        services.AddHostedMqttServer(mqttServerOptions).AddMqttConnectionHandler().AddConnections().AddMqttTcpServerAdapter();
+        services.AddHostedMqttServer(mqttServerOptions)
+            .AddMqttConnectionHandler()
+            .AddConnections()
+            .AddMqttTcpServerAdapter();
 
         // Workaround to have a hosted background service available by DI.
         services.AddSingleton(_ => new MqttService(this.mqttServiceConfiguration, this.serviceName.Name ?? "MqttService"));
